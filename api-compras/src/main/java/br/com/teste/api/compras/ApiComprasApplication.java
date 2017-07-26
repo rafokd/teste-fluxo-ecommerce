@@ -1,4 +1,4 @@
-package com.teste.api.compras;
+package br.com.teste.api.compras;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.teste.api.compras;
+package br.com.teste.api.compras;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

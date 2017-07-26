@@ -26,7 +26,7 @@ public class ApiProdutosApplicationTests {
 	public void testaBuscaProduto(){
 		
 		String uri = "/produtos/{id}";
-		long id = 1l;
+		Long id = 1l;
 		
 		Map<String, Long> params = new HashMap<>();
 	    params.put("id", id);
@@ -40,17 +40,17 @@ public class ApiProdutosApplicationTests {
 		
 		String uri = "/produtos";
 		
-		Produto produto = new Produto(0, "Teste Produto", new BigDecimal("10"), 10l);
+		Produto produto = new Produto(null, "Teste Produto", new BigDecimal("10"), 10l);
 		produto = testRestTemplate.postForObject(uri, produto, Produto.class);
 		
-		Assert.assertNotEquals(0, produto.getId());
+		Assert.assertNotEquals(null, produto.getId());
 	}
 	
 	@Test
 	public void testaRemoverEstoque(){
 		
 		String uriBuscaProduto = "/produtos/{id}";
-		long id = 1l;
+		Long id = 1l;
 		Map<String, Long> paramsBuscaProduto = new HashMap<>();
 		paramsBuscaProduto.put("id", id);
 		

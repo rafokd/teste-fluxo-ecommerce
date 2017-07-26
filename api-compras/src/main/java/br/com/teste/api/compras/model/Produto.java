@@ -1,4 +1,4 @@
-package br.com.teste.api.produtos.model;
+package br.com.teste.api.compras.model;
 
 import java.math.BigDecimal;
 
