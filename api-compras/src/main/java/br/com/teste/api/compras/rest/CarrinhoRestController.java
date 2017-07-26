@@ -46,4 +46,22 @@ public class CarrinhoRestController {
 			return new ResponseEntity<>("Estoque insuficiente", HttpStatus.FORBIDDEN);
 		}
 	}
+	
+	@RequestMapping(value = "/carrinho/checkout", method = RequestMethod.POST)
+	public ResponseEntity<?> checkout(@RequestBody Carrinho carrinho){
+		
+		if(carrinho.getProdutos().isEmpty()){
+			return new ResponseEntity<>("Carrinho vazio", HttpStatus.FORBIDDEN);
+		}
+		
+		RestTemplate restTemplate = new RestTemplate();
+		Map<String, Long> params = new HashMap<>();
+		
+		carrinho.getProdutos().forEach(produto -> {
+			params.put("quantidade", produto.getQuantidade());
+			restTemplate.postForEntity(produtoApiUrl + "/produtos/removerEstoque/{quantidade}", produto, String.class, params);
+		});
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

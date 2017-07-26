@@ -25,7 +25,7 @@ public class ProdutoRestController {
 		return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value = "/produtos/removerEstoque/{quantidade}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/produtos/removerEstoque/{quantidade}", method = RequestMethod.POST)
 	public ResponseEntity<String> removerEstoque(@PathVariable("quantidade") Long quantidade, @RequestBody Produto produto){
 		new ProdutoDAO().removerEstoque(produto, quantidade);
 		return new ResponseEntity<String>(HttpStatus.OK);

@@ -62,7 +62,7 @@ public class ApiProdutosApplicationTests {
 		Produto produto = testRestTemplate.getForObject(uriBuscaProduto, Produto.class, paramsBuscaProduto);
 		long estoqueAnterior = produto.getQuantidadeEstoque();
 		
-		testRestTemplate.put(uriRemoverEstoque, produto, paramsRemoverEstoque);
+		testRestTemplate.postForEntity(uriRemoverEstoque, produto, String.class, paramsRemoverEstoque);
 		
 		produto = testRestTemplate.getForObject(uriBuscaProduto, Produto.class, paramsBuscaProduto);
 		
