@@ -39,14 +39,9 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
         ```
     
     - Remover estoque:
-        - URL: http://localhost:8080/produtos/removerEstoque/{quantidade}
-        - Parâmetros: "quantidade" -> Quantidade do produto.
-        - Método: POST
-        - Content-Type: application/json
-        - Body:
-        ```sh
-        {"id": 6}
-        ```
+        - URL: http://localhost:8080/produtos/{id}/removerEstoque/{quantidade}
+        - Parâmetros: "id" -> ID do produto; "quantidade" -> Quantidade do produto.
+        - Método: PUT
         
 ### Compras: 
 - Projeto: api-compras
