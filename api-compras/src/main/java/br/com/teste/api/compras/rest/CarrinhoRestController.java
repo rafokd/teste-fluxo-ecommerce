@@ -21,11 +21,6 @@ public class CarrinhoRestController {
 
 	private String produtoApiUrl = "http://localhost:8080";
 	
-	@RequestMapping(value = "/carrinho", method = RequestMethod.GET)
-	public ResponseEntity<?> teste(){
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
 	@RequestMapping(value = "/carrinho/{idProduto}/{quantidade}", method = RequestMethod.POST)
 	public ResponseEntity<?> adicionaProduto(
 			@PathVariable("idProduto") Long idProduto, 
