@@ -58,8 +58,9 @@ public class CarrinhoRestController {
 		Map<String, Long> params = new HashMap<>();
 		
 		carrinho.getProdutos().forEach(produto -> {
+			params.put("id", produto.getProduto().getId());
 			params.put("quantidade", produto.getQuantidade());
-			restTemplate.postForEntity(produtoApiUrl + "/produtos/removerEstoque/{quantidade}", produto, String.class, params);
+			restTemplate.put(produtoApiUrl + "/produtos/{id}/removerEstoque/{quantidade}", null, params);
 		});
 		
 		return new ResponseEntity<>(HttpStatus.OK);

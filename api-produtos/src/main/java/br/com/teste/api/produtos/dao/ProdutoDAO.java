@@ -30,8 +30,7 @@ public class ProdutoDAO {
 		return banco.get(id);
 	}
 	
-	public void removerEstoque(Produto produto, Long quantidade){
-		banco.get(produto.getId())
-			.setQuantidadeEstoque(produto.getQuantidadeEstoque() - quantidade);
+	public void removerEstoque(Long id, Long quantidade){
+		banco.get(id).setQuantidadeEstoque(banco.get(id).getQuantidadeEstoque() - quantidade);
 	}
 }

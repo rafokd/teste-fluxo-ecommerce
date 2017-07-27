@@ -53,16 +53,17 @@ public class ApiProdutosApplicationTests {
 		Long id = 1l;
 		Map<String, Long> paramsBuscaProduto = new HashMap<>();
 		paramsBuscaProduto.put("id", id);
-		
-		String uriRemoverEstoque = "/produtos/removerEstoque/{quantidade}";
+								    
+		String uriRemoverEstoque = "/produtos/{id}/removerEstoque/{quantidade}";
 		long quantidade = 5l;
 		Map<String, Long> paramsRemoverEstoque = new HashMap<>();
+		paramsRemoverEstoque.put("id", id);
 		paramsRemoverEstoque.put("quantidade", quantidade);
 		
 		Produto produto = testRestTemplate.getForObject(uriBuscaProduto, Produto.class, paramsBuscaProduto);
 		long estoqueAnterior = produto.getQuantidadeEstoque();
 		
-		testRestTemplate.postForEntity(uriRemoverEstoque, produto, String.class, paramsRemoverEstoque);
+		testRestTemplate.put(uriRemoverEstoque, null, paramsRemoverEstoque);
 		
 		produto = testRestTemplate.getForObject(uriBuscaProduto, Produto.class, paramsBuscaProduto);
 		
