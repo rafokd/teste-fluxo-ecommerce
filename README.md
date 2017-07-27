@@ -4,6 +4,7 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
 
 - Pré-requisito para execução: Java 8.
 - API de compras depende da API de produtos.
+- Não necessita de banco de dados. 
 
 ### Produtos
 - Projeto: api-produtos
