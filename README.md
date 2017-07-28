@@ -4,7 +4,8 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
 
 - Pré-requisito para execução: Java 8.
 - API de compras depende da API de produtos.
-- Não necessita de banco de dados. 
+- Banco de Dados: H2 Embedded
+- Configuração para MySQL pronta no arquivo "application.properties"
 
 ### Produtos
 - Projeto: api-produtos
@@ -13,6 +14,13 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
 - Comando para executar: 
 ```sh
     java -jar api-produtos-1.0.0.jar
+```
+- Banco de Dados:
+```sh
+    Console: http://localhost:8080/h2-console
+    JDBC URL: jdbc:h2:file:~/h2/api-produtos
+    User name: sa
+    Password: 
 ```
 - Funcionalidades:
     - Busca de produtos:
@@ -51,6 +59,13 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
 ```sh
     java -jar api-compras-1.0.0.jar
 ```
+- Banco de Dados:
+```sh
+    Console: http://localhost:8081/h2-console
+    JDBC URL: jdbc:h2:file:~/h2/api-compras
+    User name: sa
+    Password: 
+```
 - Funcionalidades:
     - Adicionar no carrinho: 
         - URL: http://localhost:8081/carrinho/{idProduto}/{quantidade}
@@ -69,15 +84,11 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
             "id": 1,
             "produtos": [
                 {
-                    "produto": {
-                        "id": 1,
-                        "nome": "Produto 1",
-                        "preco": 100,
-                        "quantidadeEstoque": 30
-                    },
+                    "idProduto": 1,
                     "quantidade": 5
                 }
-            ]
+            ],
+            "realizouCheckout": false
         }
         ```
     - Checkout: 
@@ -90,15 +101,11 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
             "id": 1,
             "produtos": [
                 {
-                    "produto": {
-                        "id": 1,
-                        "nome": "Produto 1",
-                        "preco": 100,
-                        "quantidadeEstoque": 30
-                    },
+                    "idProduto": 1,
                     "quantidade": 5
                 }
-            ]
+            ],
+            "realizouCheckout": false
         }
         ```
         O checkout removerá os estoques dos produtos do carrinho.
