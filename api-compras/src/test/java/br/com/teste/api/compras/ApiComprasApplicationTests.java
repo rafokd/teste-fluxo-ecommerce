@@ -24,9 +24,10 @@ public class ApiComprasApplicationTests {
 	@Autowired
     private TestRestTemplate testRestTemplate;
 	
-	private String URL_TESTA_API_PRODUTO = "http://localhost:8080/produtos/1";
-	private String URI_ADICIONA_CARRINHO = "/carrinho/{idProduto}/{quantidade}";
-	private String URI_CHECKOUT = "/carrinho/checkout";
+	private static final String URL_TESTA_API_PRODUTO = "http://localhost:8080/produtos/1";
+	private static final String URL_BUSCA_TODOS_PRODUTO = "http://localhost:8080/produtos";
+	private static final String URI_ADICIONA_CARRINHO = "/carrinho/{idProduto}/{quantidade}";
+	private static final String URI_CHECKOUT = "/carrinho/checkout";
 
 	@Test
 	public void testaAdicionaCarrinho(){
@@ -34,8 +35,13 @@ public class ApiComprasApplicationTests {
 		if(isApiProdutoAtivo()){
 			
 			Long quantidade = 5l;
-			Carrinho carrinho = adicionaCarrinho(1l, quantidade);
-		    Assert.assertEquals(quantidade, carrinho.getProdutos().get(0).getQuantidade());
+			Produto produto = buscaQualquerProdutoComEstoque(quantidade);
+			
+			if(produto != null){
+				
+				Carrinho carrinho = adicionaCarrinho(produto.getId(), quantidade);
+			    Assert.assertEquals(quantidade, carrinho.getProdutos().get(0).getQuantidade());
+			}
 		}
 	}
 	
@@ -45,18 +51,35 @@ public class ApiComprasApplicationTests {
 		if(isApiProdutoAtivo()){
 			
 			Long quantidade = 5l;
-			Carrinho carrinho = adicionaCarrinho(1l, quantidade);
-			Assert.assertEquals(HttpStatus.OK, testRestTemplate.postForEntity(URI_CHECKOUT, carrinho, Object.class).getStatusCode());
+			Produto produto = buscaQualquerProdutoComEstoque(quantidade);
+			
+			if(produto != null){
+				
+				Carrinho carrinho = adicionaCarrinho(produto.getId(), quantidade);
+				Assert.assertEquals(HttpStatus.OK, testRestTemplate.postForEntity(URI_CHECKOUT, carrinho, Object.class).getStatusCode());
+			}
 		}
 	}
 	
 	private Carrinho adicionaCarrinho(Long idProduto, Long quantidade){
 		
 		Map<String, Long> params = new HashMap<>();
-	    params.put("idProduto", 1l);
+	    params.put("idProduto", idProduto);
 	    params.put("quantidade", quantidade);
 		
-	    return testRestTemplate.postForObject(URI_ADICIONA_CARRINHO, null, Carrinho.class, params);
+	    return testRestTemplate.postForObject(URI_ADICIONA_CARRINHO, new Carrinho(), Carrinho.class, params);
+	}
+	
+	private Produto buscaQualquerProdutoComEstoque(long quantidade){
+		
+		Produto[] produtos = new RestTemplate().getForObject(URL_BUSCA_TODOS_PRODUTO, Produto[].class);
+		
+		for(Produto produto : produtos){
+			if(produto.getQuantidadeEstoque() >= quantidade){
+				return produto;
+			}
+		}
+		return null;
 	}
 	
 	private boolean isApiProdutoAtivo(){

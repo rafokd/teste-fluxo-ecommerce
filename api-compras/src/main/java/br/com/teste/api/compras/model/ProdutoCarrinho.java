@@ -1,23 +1,26 @@
 package br.com.teste.api.compras.model;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class ProdutoCarrinho {
 
-	private Produto produto;
+	private Long idProduto;
 	private Long quantidade;
 	
 	public ProdutoCarrinho(){}
 	
-	public ProdutoCarrinho(Produto produto, Long quantidade){
-		this.produto = produto;
+	public ProdutoCarrinho(Long idProduto, Long quantidade){
+		this.idProduto = idProduto;
 		this.quantidade = quantidade;
 	}
 	
-	public Produto getProduto() {
-		return produto;
+	public Long getIdProduto() {
+		return idProduto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setIdProduto(Long idProduto) {
+		this.idProduto = idProduto;
 	}
 
 	public Long getQuantidade() {
