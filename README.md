@@ -101,4 +101,4 @@ Pequeno fluxo de e-commerce baseado na comunicação entre duas APIs (apenas bac
             ]
         }
         ```
-        O checkout irá remover os estoques dos produtos do carrinho.
+        O checkout removerá os estoques dos produtos do carrinho.
